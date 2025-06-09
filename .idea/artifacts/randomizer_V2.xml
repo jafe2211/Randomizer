@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="randomizer V2">
+    <output-path>$PROJECT_DIR$/../../TestServer NEW/plugins</output-path>
+    <root id="archive" name="randomizer V2.jar">
+      <element id="module-output" name="Randomizer" />
+    </root>
+  </artifact>
+</component>

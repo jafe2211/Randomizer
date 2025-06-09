@@ -1,0 +1,6 @@
+name: Randomizer
+version: '1.0-SNAPSHOT'
+main: de.jafe2211.randomizer.Randomizer
+api-version: '1.21'
+authors: [ Jafe2211 ]
+description: An plugin to randomize block drops
