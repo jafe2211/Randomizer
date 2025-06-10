@@ -87,7 +87,6 @@ public class RandomizerCmd implements CommandExecutor {
         Player p = (Player)cs;
 
         p.sendMessage(Randomizer.getPlugin(Randomizer.class).getConfig().getString("mode"));
-
         //fillRemainingList();
 
        /* if(Objects.equals(Randomizer.getPlugin(Randomizer.class).getConfig().getString("mode"), "player")){
