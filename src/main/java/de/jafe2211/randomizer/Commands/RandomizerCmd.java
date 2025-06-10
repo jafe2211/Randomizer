@@ -1,6 +1,7 @@
 package de.jafe2211.randomizer.Commands;
 
 import de.jafe2211.randomizer.Randomizer;
+import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -92,7 +93,7 @@ public class RandomizerCmd implements CommandExecutor {
         }
 
         if(args.length == 1) {
-            if(args[0].equals("shufle")) {
+            if(args[0].equals("shuffle")) {
                 fillRemainingList();
 
                 if (Objects.equals(Randomizer.getPlugin(Randomizer.class).getConfig().getString("mode"), "player")) {
@@ -106,8 +107,25 @@ public class RandomizerCmd implements CommandExecutor {
                 if (Objects.equals(Randomizer.getPlugin(Randomizer.class).getConfig().getString("mode"), "single")) {
                     generateBlockPalette();
                 }
+                p.sendMessage(Randomizer.prefix() + " shuffled block pallet!");
+            }
+            if(args[0].equals("help")){
+                p.sendMessage(Randomizer.prefix() + ChatColor.AQUA + " /rm mode MODE" + ChatColor.GRAY + " lets you switch to the desired mode options being: 1. single 2. team 3. player");
+                p.sendMessage(Randomizer.prefix() + ChatColor.AQUA + " /rm shuffle" + ChatColor.GRAY + " lets you shuffle the random block pallet");
+            }
+
+            if(args[0].equals("start")){
+                Randomizer.getPlugin(Randomizer.class).getConfig().set("active", true);
+                Randomizer.getPlugin(Randomizer.class).saveConfig();
+                p.sendMessage(Randomizer.prefix() + " started Randomizer");
+            }
+            if(args[0].equals("stop")){
+                Randomizer.getPlugin(Randomizer.class).getConfig().set("active", false);
+                Randomizer.getPlugin(Randomizer.class).saveConfig();
+                p.sendMessage(Randomizer.prefix() + " stoped Randomizer");
             }
         }
+
         if(args.length == 2){
             if(args[0].equals("mode")){
                 switch (args[1]){
@@ -117,12 +135,14 @@ public class RandomizerCmd implements CommandExecutor {
                         Randomizer.getPlugin(Randomizer.class).saveConfig();
                         p.sendMessage(Randomizer.prefix() + " Switched mode to player!");
                         break;
+
                     case "single":
                         Randomizer.getPlugin(Randomizer.class).getConfig().set("mode", "single");
                         Randomizer.getPlugin(Randomizer.class).getConfig().set("partners", null);
                         Randomizer.getPlugin(Randomizer.class).saveConfig();
                         p.sendMessage(Randomizer.prefix() + " Switched mode to single!");
                         break;
+
                     case "team":
                         Randomizer.getPlugin(Randomizer.class).getConfig().set("mode", "team");
                         Randomizer.getPlugin(Randomizer.class).getConfig().set("partners", null);
@@ -130,6 +150,7 @@ public class RandomizerCmd implements CommandExecutor {
                         p.sendMessage(Randomizer.prefix() + " Switched mode to team!");
                         break;
                 }
+                p.sendMessage(Randomizer.prefix() + " please run " + ChatColor.AQUA + "/rm shuffle" + ChatColor.GRAY);
             }
         }
         return false;
