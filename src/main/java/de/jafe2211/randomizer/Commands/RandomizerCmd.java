@@ -1,11 +1,13 @@
 package de.jafe2211.randomizer.Commands;
 
 import de.jafe2211.randomizer.Randomizer;
+import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
+import org.bukkit.command.TabCompleter;
 import org.bukkit.entity.Player;
 import org.bukkit.scoreboard.Team;
 
@@ -14,7 +16,7 @@ import java.util.List;
 import java.util.Objects;
 import java.util.Random;
 
-public class RandomizerCmd implements CommandExecutor {
+public class RandomizerCmd implements CommandExecutor, TabCompleter {
 
     public static List<Material> remaining = new ArrayList<>();
 
@@ -40,7 +42,7 @@ public class RandomizerCmd implements CommandExecutor {
                 rand = r.nextInt(remaining.size() -1);
             }
 
-            Randomizer.getPlugin(Randomizer.class).getConfig().set("partners." + player.getName() + "." + mat, remaining.get(rand).toString());
+            Randomizer.getPlugin(Randomizer.class).getConfig().set("partners." + player.getName() + "." + mat.toString(), remaining.get(rand).toString());
             remaining.remove(rand);
         }
         Randomizer.getPlugin(Randomizer.class).saveConfig();
@@ -57,7 +59,7 @@ public class RandomizerCmd implements CommandExecutor {
                 rand = r.nextInt(remaining.size() -1);
             }
 
-            Randomizer.getPlugin(Randomizer.class).getConfig().set("partners." + team.getName() + "." + mat, remaining.get(rand).toString());
+            Randomizer.getPlugin(Randomizer.class).getConfig().set("partners." + team.getName() + "." + mat.toString(), remaining.get(rand).toString());
             remaining.remove(rand);
         }
         Randomizer.getPlugin(Randomizer.class).saveConfig();
@@ -74,7 +76,7 @@ public class RandomizerCmd implements CommandExecutor {
                 rand = r.nextInt(remaining.size() -1);
             }
 
-            Randomizer.getPlugin(Randomizer.class).getConfig().set("partners." + mat, remaining.get(rand).toString());
+            Randomizer.getPlugin(Randomizer.class).getConfig().set("partners." + mat.toString(), remaining.get(rand).toString());
             remaining.remove(rand);
         }
         Randomizer.getPlugin(Randomizer.class).saveConfig();
@@ -97,11 +99,15 @@ public class RandomizerCmd implements CommandExecutor {
                 fillRemainingList();
 
                 if (Objects.equals(Randomizer.getPlugin(Randomizer.class).getConfig().getString("mode"), "player")) {
-                    generateBlockPaletteForUser(p);
+                    for(Player onlinePlayer : Bukkit.getOnlinePlayers()){
+                        generateBlockPaletteForUser(onlinePlayer);
+                    }
                 }
 
                 if (Objects.equals(Randomizer.getPlugin(Randomizer.class).getConfig().getString("mode"), "team")) {
-                    generateBlockPaletteForTeam(p.getScoreboard().getTeam("s"));
+                    for(Team team : Bukkit.getScoreboardManager().getMainScoreboard().getTeams()){
+                        generateBlockPaletteForTeam(team);
+                    }
                 }
 
                 if (Objects.equals(Randomizer.getPlugin(Randomizer.class).getConfig().getString("mode"), "single")) {
@@ -113,7 +119,11 @@ public class RandomizerCmd implements CommandExecutor {
                 p.sendMessage(Randomizer.prefix() + ChatColor.AQUA + " /rm mode MODE" + ChatColor.GRAY + " lets you switch to the desired mode options being: 1. single 2. team 3. player");
                 p.sendMessage(Randomizer.prefix() + ChatColor.AQUA + " /rm shuffle" + ChatColor.GRAY + " lets you shuffle the random block pallet");
             }
-
+            if(args[0].equals("getstarted")){
+                p.sendMessage(Randomizer.prefix() + " First chose the mode you want to play in with " + ChatColor.AQUA + "/rm mode <MODE>");
+                p.sendMessage(Randomizer.prefix() + " then shuffle the block drops with " + ChatColor.AQUA + "/rm shuffle");
+                p.sendMessage(Randomizer.prefix() + " To start it then run " + ChatColor.AQUA + "/rm start");
+            }
             if(args[0].equals("start")){
                 Randomizer.getPlugin(Randomizer.class).getConfig().set("active", true);
                 Randomizer.getPlugin(Randomizer.class).saveConfig();
@@ -154,5 +164,17 @@ public class RandomizerCmd implements CommandExecutor {
             }
         }
         return false;
+    }
+
+    @Override
+    public List<String> onTabComplete(CommandSender commandSender, Command command, String s, String[] args) {
+        if(args.length == 1){
+            return List.of("mode", "start", "stop", "shuffle", "getstarted");
+        }
+        if(args.length == 2){
+            return List.of("single", "team", "player");
+        }
+
+        return List.of();
     }
 }

@@ -2,10 +2,11 @@ package de.jafe2211.randomizer;
 
 import de.jafe2211.randomizer.Commands.RandomizerCmd;
 import de.jafe2211.randomizer.Listeners.JoinListener;
+import de.jafe2211.randomizer.Listeners.breakBlock;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
-import org.bukkit.Server;
+import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.util.ArrayList;
@@ -21,7 +22,6 @@ public final class Randomizer extends JavaPlugin {
         load();
     }
 
-
     @Override
     public void onDisable() {
         // Plugin shutdown logic
@@ -35,6 +35,14 @@ public final class Randomizer extends JavaPlugin {
 
         loadCommands();
         loadListeners();
+        if(Bukkit.getOnlinePlayers().isEmpty()){
+            Bukkit.getPluginManager().registerEvents(new JoinListener(), this);
+        }
+        for(Player p : Bukkit.getOnlinePlayers()){
+            p.sendMessage(ChatColor.GRAY + "<-----------------[" + ChatColor.AQUA + ChatColor.BOLD + "Randomizer" + ChatColor.GRAY + "]----------------->");
+            p.sendMessage(ChatColor.GRAY + " thanks for using " + ChatColor.AQUA + "Randomizer V1.0");
+            p.sendMessage(ChatColor.GRAY + " if you need help geting started type " + ChatColor.AQUA + "/rm getstarted");
+        }
     }
 
     public void loadCommands(){
@@ -42,7 +50,7 @@ public final class Randomizer extends JavaPlugin {
     }
 
     public void loadListeners(){
-        Bukkit.getPluginManager().registerEvents(new JoinListener(), this);
+        Bukkit.getPluginManager().registerEvents(new breakBlock(), this);
     }
 
     public static List<Material> remaining = new ArrayList<>();
