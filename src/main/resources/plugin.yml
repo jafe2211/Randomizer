@@ -4,3 +4,7 @@ main: de.jafe2211.randomizer.Randomizer
 api-version: '1.21'
 authors: [ Jafe2211 ]
 description: An plugin to randomize block drops
+commands:
+  Randomizer:
+    descripiton: main command of this plugin run it for further help
+    aliases: rm

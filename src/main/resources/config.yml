@@ -1,0 +1,10 @@
+#This is the config file of this Plugin, you shouldn't change the values underneath. You can configure all of these thing in game via the /randomizer command
+#If you do change the values here's the explenation:
+#
+#active means wether or not the plugin randomizes the item drops
+#mode means if the drops are the same for every player(single) if the are uniqe to each team(team), or if they are uniqe to every player(player)
+
+
+active: false
+mode: single
+partners:
