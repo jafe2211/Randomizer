@@ -42,7 +42,7 @@ public class RandomizerCmd implements CommandExecutor {
             Randomizer.getPlugin(Randomizer.class).getConfig().set("partners." + player.getName() + "." + mat, remaining.get(rand).toString());
             remaining.remove(rand);
         }
-        //Randomizer.getPlugin(Randomizer.class).saveConfig();
+        Randomizer.getPlugin(Randomizer.class).saveConfig();
     }
 
     public void generateBlockPaletteForTeam(Team team){
@@ -59,7 +59,7 @@ public class RandomizerCmd implements CommandExecutor {
             Randomizer.getPlugin(Randomizer.class).getConfig().set("partners." + team.getName() + "." + mat, remaining.get(rand).toString());
             remaining.remove(rand);
         }
-        //Randomizer.getPlugin(Randomizer.class).saveConfig();
+        Randomizer.getPlugin(Randomizer.class).saveConfig();
     }
 
     public void generateBlockPalette(){
@@ -76,7 +76,7 @@ public class RandomizerCmd implements CommandExecutor {
             Randomizer.getPlugin(Randomizer.class).getConfig().set("partners." + mat, remaining.get(rand).toString());
             remaining.remove(rand);
         }
-        //Randomizer.getPlugin(Randomizer.class).saveConfig();
+        Randomizer.getPlugin(Randomizer.class).saveConfig();
     }
 
     @Override
@@ -85,21 +85,53 @@ public class RandomizerCmd implements CommandExecutor {
         if(!(cs instanceof Player)) return true;
 
         Player p = (Player)cs;
-
-        p.sendMessage(Randomizer.getPlugin(Randomizer.class).getConfig().getString("mode"));
-        //fillRemainingList();
-
-       /* if(Objects.equals(Randomizer.getPlugin(Randomizer.class).getConfig().getString("mode"), "player")){
-            generateBlockPaletteForUser(p);
+        if(!(args.length > 0)){
+            p.sendMessage(Randomizer.prefix() + " Please provide a valid argument!");
+            p.sendMessage(Randomizer.prefix() + " If you need help type /randomizer help or /rm help");
+            return true;
         }
 
-        if(Objects.equals(Randomizer.getPlugin(Randomizer.class).getConfig().getString("mode"), "team")){
-            generateBlockPaletteForTeam(p.getScoreboard().getTeam("s"));
-        }
+        if(args.length == 1) {
+            if(args[0].equals("shufle")) {
+                fillRemainingList();
 
-        if(Objects.equals(Randomizer.getPlugin(Randomizer.class).getConfig().getString("mode"), "single")){
-            generateBlockPalette();
-        } */
+                if (Objects.equals(Randomizer.getPlugin(Randomizer.class).getConfig().getString("mode"), "player")) {
+                    generateBlockPaletteForUser(p);
+                }
+
+                if (Objects.equals(Randomizer.getPlugin(Randomizer.class).getConfig().getString("mode"), "team")) {
+                    generateBlockPaletteForTeam(p.getScoreboard().getTeam("s"));
+                }
+
+                if (Objects.equals(Randomizer.getPlugin(Randomizer.class).getConfig().getString("mode"), "single")) {
+                    generateBlockPalette();
+                }
+            }
+        }
+        if(args.length == 2){
+            if(args[0].equals("mode")){
+                switch (args[1]){
+                    case "player":
+                        Randomizer.getPlugin(Randomizer.class).getConfig().set("mode", "player");
+                        Randomizer.getPlugin(Randomizer.class).getConfig().set("partners", null);
+                        Randomizer.getPlugin(Randomizer.class).saveConfig();
+                        p.sendMessage(Randomizer.prefix() + " Switched mode to player!");
+                        break;
+                    case "single":
+                        Randomizer.getPlugin(Randomizer.class).getConfig().set("mode", "single");
+                        Randomizer.getPlugin(Randomizer.class).getConfig().set("partners", null);
+                        Randomizer.getPlugin(Randomizer.class).saveConfig();
+                        p.sendMessage(Randomizer.prefix() + " Switched mode to single!");
+                        break;
+                    case "team":
+                        Randomizer.getPlugin(Randomizer.class).getConfig().set("mode", "team");
+                        Randomizer.getPlugin(Randomizer.class).getConfig().set("partners", null);
+                        Randomizer.getPlugin(Randomizer.class).saveConfig();
+                        p.sendMessage(Randomizer.prefix() + " Switched mode to team!");
+                        break;
+                }
+            }
+        }
         return false;
     }
 }
