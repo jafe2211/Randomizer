@@ -89,7 +89,7 @@ public class RandomizerCmd implements CommandExecutor {
         p.sendMessage(Randomizer.getPlugin(Randomizer.class).getConfig().getString("mode"));
 
 
-        fillRemainingList();
+        //fillRemainingList();
 
        /* if(Objects.equals(Randomizer.getPlugin(Randomizer.class).getConfig().getString("mode"), "player")){
             generateBlockPaletteForUser(p);
