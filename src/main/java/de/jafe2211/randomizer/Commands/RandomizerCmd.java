@@ -23,61 +23,61 @@ public class RandomizerCmd implements CommandExecutor, TabCompleter {
     public void fillRemainingList(){
         remaining.clear();
 
-        for(Material mat : Material.values()){
-            if(!(mat.isItem())) continue;
+        for(Material material : Material.values()){
+            if(!(material.isItem())) continue;
 
-            remaining.add(mat);
+            remaining.add(material);
         }
     }
 
     public void generateBlockPaletteForUser(Player player){
-        for(Material mat: Material.values()){
+        for(Material material: Material.values()){
             if(remaining.isEmpty()) continue;
-            if(!mat.isBlock()) continue;
+            if(!material.isBlock()) continue;
 
             Random r = new Random();
-            int rand = 0;
+            int random = 0;
 
             if(remaining.size() != 1){
-                rand = r.nextInt(remaining.size() -1);
+                random = r.nextInt(remaining.size() -1);
             }
 
-            Randomizer.getPlugin(Randomizer.class).getConfig().set("partners." + player.getName() + "." + mat.toString(), remaining.get(rand).toString());
-            remaining.remove(rand);
+            Randomizer.getPlugin(Randomizer.class).getConfig().set("randomTable." + player.getName() + "." + material.toString(), remaining.get(random).toString());
+            remaining.remove(random);
         }
         Randomizer.getPlugin(Randomizer.class).saveConfig();
     }
 
     public void generateBlockPaletteForTeam(Team team){
-        for(Material mat: Material.values()){
+        for(Material material: Material.values()){
             if(remaining.isEmpty()) continue;
-            if(!mat.isBlock()) continue;
+            if(!material.isBlock()) continue;
             Random r = new Random();
-            int rand = 0;
+            int random = 0;
 
             if(remaining.size() != 1){
-                rand = r.nextInt(remaining.size() -1);
+                random = r.nextInt(remaining.size() -1);
             }
 
-            Randomizer.getPlugin(Randomizer.class).getConfig().set("partners." + team.getName() + "." + mat.toString(), remaining.get(rand).toString());
-            remaining.remove(rand);
+            Randomizer.getPlugin(Randomizer.class).getConfig().set("randomTable." + team.getName() + "." + material.toString(), remaining.get(random).toString());
+            remaining.remove(random);
         }
         Randomizer.getPlugin(Randomizer.class).saveConfig();
     }
 
     public void generateBlockPalette(){
-        for(Material mat: Material.values()){
+        for(Material material: Material.values()){
             if(remaining.isEmpty()) continue;
-            if(!mat.isBlock()) continue;
+            if(!material.isBlock()) continue;
             Random r = new Random();
-            int rand = 0;
+            int random = 0;
 
             if(remaining.size() != 1){
-                rand = r.nextInt(remaining.size() -1);
+                random = r.nextInt(remaining.size() -1);
             }
 
-            Randomizer.getPlugin(Randomizer.class).getConfig().set("partners." + mat.toString(), remaining.get(rand).toString());
-            remaining.remove(rand);
+            Randomizer.getPlugin(Randomizer.class).getConfig().set("randomTable." + material.toString(), remaining.get(random).toString());
+            remaining.remove(random);
         }
         Randomizer.getPlugin(Randomizer.class).saveConfig();
     }
@@ -141,21 +141,21 @@ public class RandomizerCmd implements CommandExecutor, TabCompleter {
                 switch (args[1]){
                     case "player":
                         Randomizer.getPlugin(Randomizer.class).getConfig().set("mode", "player");
-                        Randomizer.getPlugin(Randomizer.class).getConfig().set("partners", null);
+                        Randomizer.getPlugin(Randomizer.class).getConfig().set("randomTable", null);
                         Randomizer.getPlugin(Randomizer.class).saveConfig();
                         p.sendMessage(Randomizer.prefix() + " Switched mode to player!");
                         break;
 
                     case "single":
                         Randomizer.getPlugin(Randomizer.class).getConfig().set("mode", "single");
-                        Randomizer.getPlugin(Randomizer.class).getConfig().set("partners", null);
+                        Randomizer.getPlugin(Randomizer.class).getConfig().set("randomTable", null);
                         Randomizer.getPlugin(Randomizer.class).saveConfig();
                         p.sendMessage(Randomizer.prefix() + " Switched mode to single!");
                         break;
 
                     case "team":
                         Randomizer.getPlugin(Randomizer.class).getConfig().set("mode", "team");
-                        Randomizer.getPlugin(Randomizer.class).getConfig().set("partners", null);
+                        Randomizer.getPlugin(Randomizer.class).getConfig().set("randomTable", null);
                         Randomizer.getPlugin(Randomizer.class).saveConfig();
                         p.sendMessage(Randomizer.prefix() + " Switched mode to team!");
                         break;

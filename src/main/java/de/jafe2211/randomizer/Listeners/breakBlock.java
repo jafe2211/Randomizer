@@ -31,16 +31,16 @@ public class breakBlock implements Listener {
         Material randomMaterial;
         try{
             if(Randomizer.getPlugin(Randomizer.class).getConfig().get("mode").equals("single")){
-                randomMaterial = Material.valueOf(Randomizer.getPlugin(Randomizer.class).getConfig().getString("partners." + mat.toString()));
+                randomMaterial = Material.valueOf(Randomizer.getPlugin(Randomizer.class).getConfig().getString("randomTable." + mat.toString()));
                 return randomMaterial;
             }
 
             if(Randomizer.getPlugin(Randomizer.class).getConfig().get("mode").equals("team")){
-                randomMaterial = Material.valueOf(Randomizer.getPlugin(Randomizer.class).getConfig().getString("partners." + p.getScoreboard().getEntryTeam(p.getName()).getName() + "." + mat.toString()));
+                randomMaterial = Material.valueOf(Randomizer.getPlugin(Randomizer.class).getConfig().getString("randomTable." + p.getScoreboard().getEntryTeam(p.getName()).getName() + "." + mat.toString()));
                 return randomMaterial;
             }
 
-            randomMaterial = Material.valueOf(Randomizer.getPlugin(Randomizer.class).getConfig().getString("partners." + p.getName() + "." + mat.toString()));
+            randomMaterial = Material.valueOf(Randomizer.getPlugin(Randomizer.class).getConfig().getString("randomTable." + p.getName() + "." + mat.toString()));
             return randomMaterial;
         } catch (Exception e){
             randomMaterial = mat;
