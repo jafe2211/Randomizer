@@ -23,9 +23,6 @@ public class RandomizerCmd implements CommandExecutor, TabCompleter {
     public void fillRemainingList(){
         remaining.clear();
 
-        for(Player p : Bukkit.getOnlinePlayers()){
-            p.sendMessage(String.valueOf(Material.values().length));
-        }
         for(Material material : Material.values()){
             if(!(material.isItem())) continue;
 
@@ -120,23 +117,27 @@ public class RandomizerCmd implements CommandExecutor, TabCompleter {
                 p.sendMessage(Randomizer.prefix() + " Shuffled block pallet!");
             }
             if(args[0].equals("help")){
+                p.sendMessage(ChatColor.GRAY + "<-----------------[" + ChatColor.AQUA + ChatColor.BOLD + "Randomizer" + ChatColor.GRAY + "]----------------->");
                 p.sendMessage(Randomizer.prefix() + ChatColor.AQUA + " /rm mode MODE" + ChatColor.GRAY + " Lets you switch to the desired mode options being: 1. single 2. team 3. player");
                 p.sendMessage(Randomizer.prefix() + ChatColor.AQUA + " /rm shuffle" + ChatColor.GRAY + " Lets you shuffle the random block pallet");
             }
             if(args[0].equals("getstarted")){
+                p.sendMessage(ChatColor.GRAY + "<-----------------[" + ChatColor.AQUA + ChatColor.BOLD + "Randomizer" + ChatColor.GRAY + "]----------------->");
                 p.sendMessage(Randomizer.prefix() + " First chose the mode you want to play in with " + ChatColor.AQUA + "/rm mode <MODE>");
                 p.sendMessage(Randomizer.prefix() + " Then shuffle the block drops with " + ChatColor.AQUA + "/rm shuffle");
                 p.sendMessage(Randomizer.prefix() + " To start it then run " + ChatColor.AQUA + "/rm start");
             }
             if(args[0].equals("start")){
+                p.sendMessage(ChatColor.GRAY + "<-----------------[" + ChatColor.AQUA + ChatColor.BOLD + "Randomizer" + ChatColor.GRAY + "]----------------->");
                 Randomizer.getPlugin(Randomizer.class).getConfig().set("active", true);
                 Randomizer.getPlugin(Randomizer.class).saveConfig();
                 p.sendMessage(Randomizer.prefix() + " Started Randomizer");
             }
             if(args[0].equals("stop")){
+                p.sendMessage(ChatColor.GRAY + "<-----------------[" + ChatColor.AQUA + ChatColor.BOLD + "Randomizer" + ChatColor.GRAY + "]----------------->");
                 Randomizer.getPlugin(Randomizer.class).getConfig().set("active", false);
                 Randomizer.getPlugin(Randomizer.class).saveConfig();
-                p.sendMessage(Randomizer.prefix() + " Stoped Randomizer");
+                p.sendMessage(Randomizer.prefix() + " Stopped Randomizer");
             }
         }
 
