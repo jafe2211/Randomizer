@@ -4,7 +4,7 @@
 
 A Minecraft plugin for **version 1.21** that randomizes block drops.  
 Created by **Jafe2211**, inspired by the original plugin from [motz0815](https://github.com/motz0815/Randomizer).  
-This version includes **multiple game modes**.
+This version includes **multiple modes**.
 
 ---
 
