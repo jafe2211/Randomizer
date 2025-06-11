@@ -1,5 +1,5 @@
 name: Randomizer
-version: '1.0'
+version: '1.0.1'
 main: de.jafe2211.randomizer.Randomizer
 api-version: '1.21'
 authors: [ Jafe2211 ]

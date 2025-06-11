@@ -8,9 +8,9 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.inventory.ItemStack;
 
-public class breakBlock implements Listener {
+public class BlockBreakListener implements Listener {
 
-    public Boolean ex = false;
+    public Boolean exception = false;
 
     @EventHandler
     public void onBlockBreak(BlockBreakEvent e ){
@@ -18,9 +18,9 @@ public class breakBlock implements Listener {
         if(Randomizer.getPlugin(Randomizer.class).getConfig().getBoolean("active")) {
             e.setDropItems(false);
             getMaterial(e.getBlock().getType(), e.getPlayer());
-            if(ex){
+            if(exception){
                 e.setDropItems(true);
-                ex = false;
+                exception = false;
                 return;
             }
             e.getBlock().getWorld().dropItemNaturally(e.getBlock().getLocation(), new ItemStack(getMaterial(e.getBlock().getType(), e.getPlayer())));
@@ -44,7 +44,7 @@ public class breakBlock implements Listener {
             return randomMaterial;
         } catch (Exception e){
             randomMaterial = mat;
-            ex = true;
+            exception = true;
         }
         return randomMaterial;
     }

@@ -23,6 +23,9 @@ public class RandomizerCmd implements CommandExecutor, TabCompleter {
     public void fillRemainingList(){
         remaining.clear();
 
+        for(Player p : Bukkit.getOnlinePlayers()){
+            p.sendMessage(String.valueOf(Material.values().length));
+        }
         for(Material material : Material.values()){
             if(!(material.isItem())) continue;
 
@@ -31,6 +34,7 @@ public class RandomizerCmd implements CommandExecutor, TabCompleter {
     }
 
     public void generateBlockPaletteForUser(Player player){
+        fillRemainingList();
         for(Material material: Material.values()){
             if(remaining.isEmpty()) continue;
             if(!material.isBlock()) continue;
@@ -49,6 +53,7 @@ public class RandomizerCmd implements CommandExecutor, TabCompleter {
     }
 
     public void generateBlockPaletteForTeam(Team team){
+        fillRemainingList();
         for(Material material: Material.values()){
             if(remaining.isEmpty()) continue;
             if(!material.isBlock()) continue;
@@ -66,6 +71,7 @@ public class RandomizerCmd implements CommandExecutor, TabCompleter {
     }
 
     public void generateBlockPalette(){
+        fillRemainingList();
         for(Material material: Material.values()){
             if(remaining.isEmpty()) continue;
             if(!material.isBlock()) continue;
@@ -96,8 +102,6 @@ public class RandomizerCmd implements CommandExecutor, TabCompleter {
 
         if(args.length == 1) {
             if(args[0].equals("shuffle")) {
-                fillRemainingList();
-
                 if (Objects.equals(Randomizer.getPlugin(Randomizer.class).getConfig().getString("mode"), "player")) {
                     for(Player onlinePlayer : Bukkit.getOnlinePlayers()){
                         generateBlockPaletteForUser(onlinePlayer);
@@ -113,26 +117,26 @@ public class RandomizerCmd implements CommandExecutor, TabCompleter {
                 if (Objects.equals(Randomizer.getPlugin(Randomizer.class).getConfig().getString("mode"), "single")) {
                     generateBlockPalette();
                 }
-                p.sendMessage(Randomizer.prefix() + " shuffled block pallet!");
+                p.sendMessage(Randomizer.prefix() + " Shuffled block pallet!");
             }
             if(args[0].equals("help")){
-                p.sendMessage(Randomizer.prefix() + ChatColor.AQUA + " /rm mode MODE" + ChatColor.GRAY + " lets you switch to the desired mode options being: 1. single 2. team 3. player");
-                p.sendMessage(Randomizer.prefix() + ChatColor.AQUA + " /rm shuffle" + ChatColor.GRAY + " lets you shuffle the random block pallet");
+                p.sendMessage(Randomizer.prefix() + ChatColor.AQUA + " /rm mode MODE" + ChatColor.GRAY + " Lets you switch to the desired mode options being: 1. single 2. team 3. player");
+                p.sendMessage(Randomizer.prefix() + ChatColor.AQUA + " /rm shuffle" + ChatColor.GRAY + " Lets you shuffle the random block pallet");
             }
             if(args[0].equals("getstarted")){
                 p.sendMessage(Randomizer.prefix() + " First chose the mode you want to play in with " + ChatColor.AQUA + "/rm mode <MODE>");
-                p.sendMessage(Randomizer.prefix() + " then shuffle the block drops with " + ChatColor.AQUA + "/rm shuffle");
+                p.sendMessage(Randomizer.prefix() + " Then shuffle the block drops with " + ChatColor.AQUA + "/rm shuffle");
                 p.sendMessage(Randomizer.prefix() + " To start it then run " + ChatColor.AQUA + "/rm start");
             }
             if(args[0].equals("start")){
                 Randomizer.getPlugin(Randomizer.class).getConfig().set("active", true);
                 Randomizer.getPlugin(Randomizer.class).saveConfig();
-                p.sendMessage(Randomizer.prefix() + " started Randomizer");
+                p.sendMessage(Randomizer.prefix() + " Started Randomizer");
             }
             if(args[0].equals("stop")){
                 Randomizer.getPlugin(Randomizer.class).getConfig().set("active", false);
                 Randomizer.getPlugin(Randomizer.class).saveConfig();
-                p.sendMessage(Randomizer.prefix() + " stoped Randomizer");
+                p.sendMessage(Randomizer.prefix() + " Stoped Randomizer");
             }
         }
 
@@ -160,7 +164,7 @@ public class RandomizerCmd implements CommandExecutor, TabCompleter {
                         p.sendMessage(Randomizer.prefix() + " Switched mode to team!");
                         break;
                 }
-                p.sendMessage(Randomizer.prefix() + " please run " + ChatColor.AQUA + "/rm shuffle" + ChatColor.GRAY);
+                p.sendMessage(Randomizer.prefix() + " Please run " + ChatColor.AQUA + "/rm shuffle" + ChatColor.GRAY);
             }
         }
         return false;

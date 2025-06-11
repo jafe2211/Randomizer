@@ -2,7 +2,7 @@ package de.jafe2211.randomizer;
 
 import de.jafe2211.randomizer.Commands.RandomizerCmd;
 import de.jafe2211.randomizer.Listeners.JoinListener;
-import de.jafe2211.randomizer.Listeners.breakBlock;
+import de.jafe2211.randomizer.Listeners.BlockBreakListener;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
@@ -40,8 +40,8 @@ public final class Randomizer extends JavaPlugin {
         }
         for(Player p : Bukkit.getOnlinePlayers()){
             p.sendMessage(ChatColor.GRAY + "<-----------------[" + ChatColor.AQUA + ChatColor.BOLD + "Randomizer" + ChatColor.GRAY + "]----------------->");
-            p.sendMessage(ChatColor.GRAY + " thanks for using " + ChatColor.AQUA + "Randomizer V1.0");
-            p.sendMessage(ChatColor.GRAY + " if you need help geting started type " + ChatColor.AQUA + "/rm getstarted");
+            p.sendMessage(ChatColor.GRAY + " Thanks for using " + ChatColor.AQUA + "Randomizer V1.0");
+            p.sendMessage(ChatColor.GRAY + " If you need help geting started type " + ChatColor.AQUA + "/rm getstarted");
         }
     }
 
@@ -50,7 +50,7 @@ public final class Randomizer extends JavaPlugin {
     }
 
     public void loadListeners(){
-        Bukkit.getPluginManager().registerEvents(new breakBlock(), this);
+        Bukkit.getPluginManager().registerEvents(new BlockBreakListener(), this);
     }
 
     public static List<Material> remaining = new ArrayList<>();
